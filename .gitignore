@@ -4,3 +4,4 @@ paper_data
 *.npy
 *.h5
 *.h5ad
+*.gz
