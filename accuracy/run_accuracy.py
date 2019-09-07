@@ -2,12 +2,13 @@ import os
 import pandas as pd
 import numpy as np
 import argparse
-
 import h5py
-
 import scipy.stats
 
 from deepimpute.multinet import MultiNet
+
+import sys
+sys.path.append('..')
 from config import imputation_methods
 
 #------------------------# Parse args #------------------------#
@@ -20,7 +21,7 @@ dataset = args.d
 
 #------------------------# raw and true data #------------------------#
 
-handle = h5py.File('paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
 
 cells = handle.get('cells')[:].astype(str)
 genes = handle.get('genes')[:].astype(str)
@@ -56,8 +57,8 @@ print("Loaded: ", METHODS)
 
 #------------------------# Global metrics #------------------------#
 
-if not os.path.exists("results/accuracy"):
-    os.mkdir("results/accuracy")
+if not os.path.exists("../results/accuracy"):
+    os.mkdir("../results/accuracy")
 
 scatter_data = { m: np.log1p(imputation[m].values[mask.values])
                  for m in METHODS }
@@ -93,15 +94,15 @@ gene_pvals = pd.DataFrame([ (dataset, method, "gene",
                             for method in imputation_methods[1:] ],
                           columns=["dataset","method","axis","value"])
 
-if os.path.exists("results/accuracy/pvalues_table.csv"):
-    statistics = pd.read_csv("results/accuracy/pvalues_table.csv",index_col=0)
+if os.path.exists("../results/accuracy/pvalues_table.csv"):
+    statistics = pd.read_csv("../results/accuracy/pvalues_table.csv",index_col=0)
     statistics = pd.concat([statistics,cell_pvals])
     statistics = pd.concat([statistics,gene_pvals])
 
 else:
     statistics = pd.concat([cell_pvals,gene_pvals])
 
-statistics.to_csv("results/accuracy/pvalues_table.csv")
+statistics.to_csv("../results/accuracy/pvalues_table.csv")
 
 #------------------------# Metric per gene #------------------------#
 
@@ -113,4 +114,4 @@ MSE = pd.concat([pd.melt(MSE_cells, id_vars=["axis"]),
 MSE["dataset"] = [dataset] * MSE.shape[0]
 MSE.columns = ["axis","method","MSE","dataset"]
 
-MSE.to_csv("results/accuracy/MSE_{}.csv".format(dataset))
+MSE.to_csv("../results/accuracy/MSE_{}.csv".format(dataset))

@@ -21,7 +21,7 @@ n_iter = 10
 
 #------------------------# Data #------------------------#
 
-handle = h5py.File('paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
 
 cells = handle.get('cells')[:].astype(str)
 genes = handle.get('genes')[:].astype(str)
@@ -33,7 +33,7 @@ mask = (raw != truth)
 
 print('Raw data loaded')
 
-outputdir = "results/training_w_subsets"
+outputdir = "../results/training_w_subsets"
 if not os.path.exists(outputdir):
     os.mkdir(outputdir)
 

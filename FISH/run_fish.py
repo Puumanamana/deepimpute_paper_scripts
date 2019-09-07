@@ -6,11 +6,13 @@ import os
 import h5py
 
 from deepimpute.multinet import MultiNet
+import sys
+sys.path.append('..')
 from config import imputation_methods
 
 #------------------------# Load FISH and raw dropseq data #------------------------#
 
-handle = h5py.File('paper_data/FISH.h5')
+handle = h5py.File('../paper_data/FISH.h5')
 fish = pd.DataFrame(handle.get('fish/data')[:],
                     index=handle.get('fish/cells')[:].astype(str),
                     columns=handle.get('fish/genes')[:].astype(str))
@@ -133,5 +135,5 @@ for gene in gene_names:
     genes_distr.append(res)
     
 ## Plot the normalized distributions
-distrs = pd.concat(genes_distr).to_csv("results/fish/normalized_distributions.csv")
+distrs = pd.concat(genes_distr).to_csv("../results/fish/normalized_distributions.csv")
     

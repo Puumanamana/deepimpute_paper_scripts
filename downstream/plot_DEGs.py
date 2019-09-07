@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 
 from sklearn.metrics import roc_curve,roc_auc_score
 import pandas as pd
+
+import sys
+sys.path.append('..')
 from config import colors
 
 def load_DEGs():

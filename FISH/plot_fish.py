@@ -4,6 +4,9 @@ from scipy.stats import pearsonr,ks_2samp
 
 import seaborn as sns
 import matplotlib.pyplot as plt
+
+import sys
+sys.path.append('..')
 from config import colors
 
 def plot_gini(df):

@@ -11,6 +11,8 @@ from os.path import dirname
 from sklearn.metrics import mean_squared_error
 from scipy.stats import pearsonr
 
+import sys
+sys.path.append('..')
 from config import colors, datasets_order
 
 COLORS = colors.drop(["raw","truth","FISH"])

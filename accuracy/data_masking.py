@@ -37,7 +37,7 @@ def estimate_dropout_prob(data):
 
 #----------- Load data -----------#
 
-handle = h5py.File('paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
 
 truth = np.array(handle.get('truth'))
 cells = handle.get('cells')[:].astype(str)
@@ -83,7 +83,7 @@ print(fails)
 #----------- Save masked data -----------#
 
 handle.close()
-handle = h5py.File('paper_data/accuracy.h5','a')
+handle = h5py.File('../paper_data/accuracy.h5','a')
 handle.create_dataset('{}/raw'.format(dataset),data=raw)
 
 raw_csv = pd.DataFrame(raw,index=cells, columns=genes).T

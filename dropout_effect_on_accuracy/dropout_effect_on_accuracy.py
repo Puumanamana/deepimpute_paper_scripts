@@ -21,7 +21,7 @@ dataset = args.d
 
 #------------------------# raw and true data #------------------------#
 
-handle = h5py.File('paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
 
 cells = handle.get('cells')[:].astype(str)
 genes = handle.get('genes')[:].astype(str)
@@ -31,7 +31,7 @@ truth = pd.DataFrame(handle.get('truth'), index=cells, columns=genes)
 
 mask = (raw != truth)
 
-outputdir = "results/dropout_effect"
+outputdir = "../results/dropout_effect"
 if not os.path.exists(outputdir):
     os.mkdir(outputdir)
 

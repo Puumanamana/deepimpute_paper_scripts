@@ -12,7 +12,7 @@ from deepimpute.multinet import MultiNet
 
 def seurat(adata,filename,dataset=None):
 
-    output_path = "results/downstream/UMAP/{}".format(dataset)
+    output_path = "../results/downstream/UMAP/{}".format(dataset)
 
     if not os.path.exists(output_path):
         os.system("mkdir -p {}".format(output_path))
@@ -123,12 +123,12 @@ if __name__ == '__main__':
         adata = seurat(adata,method,dataset=dataset)
         adata = cluster(adata)
         evaluate(adata,method,
-                 "results/downstream/leiden_{}_clustering_scores.csv".format(dataset))
+                 "../results/downstream/leiden_{}_clustering_scores.csv".format(dataset))
         if dataset == 'sim':
             DEGs.update({ method: extract_DEGs(adata,nGenes=500) })
         print("{} processed.".format(method))
 
     if dataset == 'sim':
-        with open('results/downstream/DEGs.pickle','wb') as handle:
+        with open('../results/downstream/DEGs.pickle','wb') as handle:
             pickle.dump(DEGs,handle)
                 
