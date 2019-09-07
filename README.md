@@ -19,8 +19,8 @@ To use these scripts, you need first to:
 - Undo normalization if the result is normalized
 - Collect all results and organize them the following way:
   - Accuracy experiment: All datasets (jurkat, 293T, neuron9k, GSE67602) are stored in a single h5 file, where each dataset is in a different group, and each group keys correspond to all methods + the cell labels (`cells` key), the gene labels (`genes` key), the masked dataset (`raw` key), and the true dataset ('truth' key)
-  - FISH experiment: There are 3 groups: `dropseq`, `fish`, `imputed`. the dropseq group consists in the raw dropseq data (`raw`) + the genes and cells labels. The `fish` group contains the same information in `data`, `genes` and `cells`. The `imputed` group has one key per imputation method.
-  - Downstram analysis experiment: One .h5ad (`scanpy` format) per dataset (sim or Hrvatin) per method. The naming is "${method}_${dataset}.h5ad"
+  - FISH experiment: There are 3 groups: `dropseq`, `fish`, `imputed`. the dropseq group consists in the raw dropseq data (`raw`) + the `genes` and `cells` labels. The `fish` group contains the same information in `data`, `genes` and `cells`. The `imputed` group has one key per imputation method.
+  - Downstram analysis experiment: One .h5ad (`scanpy` format) per dataset (sim or Hrvatin) per method. The naming is `${method}_${dataset}.h5ad`
 
 # Running the scripts
 You can run the scripts inside a Docker container. Docker is available at https://www.docker.com/
