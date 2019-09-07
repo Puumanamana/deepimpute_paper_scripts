@@ -27,3 +27,12 @@ The code is separated into 2 main categories:
 Some other scripts are available:
 - The data masking procedure for the accuracy experiment is in `accuracy/data_masking.py`
 - The simulation parameters are available in the `downstream` folder
+
+# Imputing with other methods
+The other methods are available in R or python. For the comparison, each imputation results needs to be un-normalized and directly comparable with the initial raw counts.
+
+# Data availalbility
+All datasets are available on one of the following platforms
+- https://www.10xgenomics.com/
+- https://www.ncbi.nlm.nih.gov/geo/
+For more information, please see the [deepImpute](https://www.biorxiv.org/content/early/2018/06/22/353607) paper
