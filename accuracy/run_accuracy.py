@@ -67,7 +67,7 @@ scatter_data["truth"] = np.log1p(truth.values[mask.values])
 scatter_data = pd.melt(pd.DataFrame(scatter_data), id_vars=['truth'])
 scatter_data['dataset'] = [dataset] * scatter_data.shape[0]
 scatter_data.columns = ["Truth","method","Imputed","dataset"]
-scatter_data.to_csv("results/accuracy/scatter_{}.csv".format(dataset))
+scatter_data.to_csv("../results/accuracy/scatter_{}.csv".format(dataset))
 
 #------------------------# Metric per cell #------------------------#
 

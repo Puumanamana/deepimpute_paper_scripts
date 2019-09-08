@@ -20,7 +20,11 @@ RUN Rscript -e "install.packages(c('scales','ggplot2'),dependencies=TRUE, repos=
 # Install DeepImpute
 RUN git clone "https://github.com/lanagarmire/deepimpute.git" && cd deepimpute && pip3 install .
 
-WORKDIR /workspace
+RUN pip3 install ipython
+RUN apt-get install nano
+
+RUN mkdir -p results/accuracy results/downstream results/fish results/dropout_effect results/speed_memory results/training_w_subsets
+
 COPY . .
 
 CMD /bin/bash
