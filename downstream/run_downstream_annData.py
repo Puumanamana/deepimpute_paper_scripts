@@ -1,4 +1,6 @@
 import os,sys
+import pickle
+import argparse
 
 import pandas as pd
 import numpy as np
@@ -92,14 +94,12 @@ def run_DI(raw):
     adata.obs["celltype"] = raw.obs.celltype.values
 
 if __name__ == '__main__':
-    import pickle
 
-    nargs = len(sys.argv)
+    parser = argparse.ArgumentParser(description='Impute data.')
+    parser.add_argument('-d', type=str, default='sim')
+    args = parser.parse_args()
 
-    dataset = "sim"
-
-    if nargs>1:
-        dataset = sys.argv[1]
+    dataset = args.d
     
     print("Dataset: {}".format(dataset))
 

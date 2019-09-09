@@ -33,7 +33,7 @@ Once built, you can access the container using the following command:
 # docker run -it deepimpute_figures
 ```
 
-The scripts can then easily be launched using `python script.py` or `Rscript script.R` for R scripts.
+The scripts can then be launched using `python script.py` or `Rscript script.R` for R scripts with the name of the dataset when applicable for run_accuracy.py and run_downstream_annData.py, you can select the dataset with the "-d" followed by the name (jurkat/293T/GSE67602/neuron9k for the accuracy, and sim/Hrvatin for the downstreamanalysis)
 
 ## Code
 The code is separated into 2 main categories:
