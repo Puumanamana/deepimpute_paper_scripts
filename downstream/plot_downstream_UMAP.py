@@ -1,16 +1,18 @@
-import sys
+import os,sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import scanpy.api as sc
 
+PARENT_DIR = os.path.join(sys.path[0], '..')
+
 dataset = sys.argv[1]
-data_dir = "../results/downstream/{}".format(dataset)
+data_dir = "{}/results/downstream/{}".format(PARENT_DIR,dataset)
 
 imputation = ["deepImpute","DCA","VIPER","MAGIC","SAVER","scImpute","DrImpute","raw"]
 
-raw = sc.read_h5ad('../paper_data/downstream/raw_{}.h5ad'.format(dataset))
+raw = sc.read_h5ad('{}/paper_data/downstream/raw_{}.h5ad'.format(PARENT_DIR,dataset))
 cells = raw.obs.index
 genes = raw.var.index
 metadata = raw.obs.celltype.values
@@ -19,7 +21,7 @@ components_all = []
 colnames = ["UMAP_1","UMAP_2"]
 for method in imputation:
     try:
-        data = np.load("../results/downstream/UMAP/{}/{}.npy".format(dataset,method))
+        data = np.load("{}/results/downstream/UMAP/{}/{}.npy".format(PARENT_DIR,dataset,method))
         df = pd.DataFrame(data,index=cells,columns=colnames)
         df["meta"] = metadata
         df["imputation"] = method
@@ -55,7 +57,7 @@ for i,ax in enumerate(g.axes.flat):
 for lh in g._legend.legendHandles: 
     lh._sizes = [50] 
 
-plt.savefig("../results/downstream/UMAP_{}.png".format(dataset),dpi=300)
+plt.savefig("{}/results/downstream/UMAP_{}.png".format(PARENT_DIR,dataset),dpi=300)
 plt.show()
 
 

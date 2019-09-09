@@ -2,17 +2,19 @@
 
 import pandas as pd
 import numpy as np
-import os
 import h5py
 
 from deepimpute.multinet import MultiNet
-import sys
-sys.path.append('..')
+
+import os,sys
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
+
 from config import imputation_methods
 
 #------------------------# Load FISH and raw dropseq data #------------------------#
 
-handle = h5py.File('../paper_data/FISH.h5')
+handle = h5py.File('{}/paper_data/FISH.h5'.format(PARENT_DIR))
 fish = pd.DataFrame(handle.get('fish/data')[:],
                     index=handle.get('fish/cells')[:].astype(str),
                     columns=handle.get('fish/genes')[:].astype(str))
@@ -96,10 +98,10 @@ GINI = pd.DataFrame({ met: distr.agg(lambda x: gini(x.values[~np.isnan(x.values)
 GINI.index.name="Gene"
 
 # Save results
-if not os.path.exists("results/fish"):
-    os.mkdir("results/fish")
+if not os.path.exists("{}/results/fish".format(PARENT_DIR)):
+    os.mkdir("{}/results/fish".format(PARENT_DIR))
 
-GINI.to_csv("results/fish/gini.csv")
+GINI.to_csv("{}/results/fish/gini.csv".format(PARENT_DIR))
 
 #-----------------# Normalized distributions #------------------#
 
@@ -135,5 +137,5 @@ for gene in gene_names:
     genes_distr.append(res)
     
 ## Plot the normalized distributions
-distrs = pd.concat(genes_distr).to_csv("../results/fish/normalized_distributions.csv")
+distrs = pd.concat(genes_distr).to_csv("{}/results/fish/normalized_distributions.csv".format(PARENT_DIR))
     

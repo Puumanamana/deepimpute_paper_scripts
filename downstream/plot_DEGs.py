@@ -5,17 +5,20 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import roc_curve,roc_auc_score
 import pandas as pd
 
-import sys
-sys.path.append('..')
+import os,sys
+
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
+
 from config import colors
 
 def load_DEGs():
-    with open("../results/downstream/DEGs.pickle","rb") as handle:
+    with open("{}/results/downstream/DEGs.pickle".format(PARENT_DIR),"rb") as handle:
         DEGs = pickle.load(handle)
     return DEGs
 
 def load_truth():
-    gene_info = pd.read_csv("../paper_data/downstream/gene_info_sim.csv",index_col=0)
+    gene_info = pd.read_csv("{}/paper_data/downstream/gene_info_sim.csv".format(PARENT_DIR),index_col=0)
         
     nGroups = gene_info.shape[1] - 4
     groups = [ "Group{}".format(g) for g in range(1,nGroups+1) ]

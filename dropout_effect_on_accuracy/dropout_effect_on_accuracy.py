@@ -1,4 +1,4 @@
-import os
+import os,sys
 from config import imputation_methods
 import pandas as pd
 import numpy as np
@@ -8,6 +8,8 @@ import h5py
 import matplotlib.pyplot as plt
 
 from deepimpute.multinet import MultiNet
+
+PARENT_DIR = os.path.join(sys.path[0], '..')
 
 #------------------------# Parse args #------------------------#
 
@@ -21,7 +23,7 @@ dataset = args.d
 
 #------------------------# raw and true data #------------------------#
 
-handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('{}/paper_data/accuracy.h5'.format(PARENT_DIR),'r').get(dataset)
 
 cells = handle.get('cells')[:].astype(str)
 genes = handle.get('genes')[:].astype(str)
@@ -31,7 +33,7 @@ truth = pd.DataFrame(handle.get('truth'), index=cells, columns=genes)
 
 mask = (raw != truth)
 
-outputdir = "../results/dropout_effect"
+outputdir = "{}/results/dropout_effect".format(PARENT_DIR)
 if not os.path.exists(outputdir):
     os.mkdir(outputdir)
 

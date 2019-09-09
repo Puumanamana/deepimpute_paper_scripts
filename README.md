@@ -33,7 +33,7 @@ Once built, you can access the container using the following command:
 # docker run -it deepimpute_figures
 ```
 
-The scripts can then easily be launched using `python3 script.py` or `Rscript script.R` for R scripts.
+The scripts can then easily be launched using `python script.py` or `Rscript script.R` for R scripts.
 
 ## Code
 The code is separated into 2 main categories:

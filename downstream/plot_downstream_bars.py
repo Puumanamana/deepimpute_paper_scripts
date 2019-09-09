@@ -3,8 +3,10 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import sys
-sys.path.append('..')
+import os,sys
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
+
 from config import colors
 
 dataset = "sim"
@@ -17,7 +19,7 @@ METRICS = [ "adjusted_rand_score",
 if len(sys.argv)>1:
     dataset = sys.argv[1]
 
-filename = "../results/downstream/{}_{}_clustering_scores.csv".format(clustering_method,dataset)
+filename = "{}/results/downstream/{}_{}_clustering_scores.csv".format(PARENT_DIR,clustering_method,dataset)
 
 scores = pd.read_csv(filename,index_col=0)
 
@@ -39,5 +41,5 @@ plt.xticks(fontsize=10)
 plt.legend(fontsize=10)
 plt.title(dataset, fontsize=10, fontweight="bold")
 
-plt.savefig("../results/downstream/barplot_{}.png".format(dataset),dpi=300)
+plt.savefig("{}/results/downstream/barplot_{}.png".format(PARENT_DIR,dataset),dpi=300)
 plt.show()

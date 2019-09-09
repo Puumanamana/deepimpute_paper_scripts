@@ -11,15 +11,17 @@ from os.path import dirname
 from sklearn.metrics import mean_squared_error
 from scipy.stats import pearsonr
 
-import sys
-sys.path.append('..')
+import os,sys
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
+
 from config import colors, datasets_order
 
 COLORS = colors.drop(["raw","truth","FISH"])
 METHODS = COLORS.index
 
 dims = ["cell level","gene level"]
-outputdir = "../results/accuracy"
+outputdir = "{}/results/accuracy".format(PARENT_DIR)
 
 def mse_boxplot(folder=outputdir):
 

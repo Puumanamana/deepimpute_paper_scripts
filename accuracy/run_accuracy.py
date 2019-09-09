@@ -1,4 +1,4 @@
-import os
+import os,sys
 import pandas as pd
 import numpy as np
 import argparse
@@ -7,8 +7,9 @@ import scipy.stats
 
 from deepimpute.multinet import MultiNet
 
-import sys
-sys.path.append('..')
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
+
 from config import imputation_methods
 
 #------------------------# Parse args #------------------------#
@@ -21,7 +22,7 @@ dataset = args.d
 
 #------------------------# raw and true data #------------------------#
 
-handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('{}/paper_data/accuracy.h5'.format(PARENT_DIR),'r').get(dataset)
 
 cells = handle.get('cells')[:].astype(str)
 genes = handle.get('genes')[:].astype(str)
@@ -57,8 +58,8 @@ print("Loaded: ", METHODS)
 
 #------------------------# Global metrics #------------------------#
 
-if not os.path.exists("../results/accuracy"):
-    os.mkdir("../results/accuracy")
+if not os.path.exists("{}/results/accuracy".format(PARENT_DIR)):
+    os.mkdir("{}/results/accuracy".format(PARENT_DIR))
 
 scatter_data = { m: np.log1p(imputation[m].values[mask.values])
                  for m in METHODS }
@@ -67,7 +68,7 @@ scatter_data["truth"] = np.log1p(truth.values[mask.values])
 scatter_data = pd.melt(pd.DataFrame(scatter_data), id_vars=['truth'])
 scatter_data['dataset'] = [dataset] * scatter_data.shape[0]
 scatter_data.columns = ["Truth","method","Imputed","dataset"]
-scatter_data.to_csv("../results/accuracy/scatter_{}.csv".format(dataset))
+scatter_data.to_csv("{}/results/accuracy/scatter_{}.csv".format(PARENT_DIR,dataset))
 
 #------------------------# Metric per cell #------------------------#
 
@@ -94,15 +95,16 @@ gene_pvals = pd.DataFrame([ (dataset, method, "gene",
                             for method in imputation_methods[1:] ],
                           columns=["dataset","method","axis","value"])
 
-if os.path.exists("../results/accuracy/pvalues_table.csv"):
-    statistics = pd.read_csv("../results/accuracy/pvalues_table.csv",index_col=0)
+output_file = "{}/results/accuracy/pvalues_table.csv".format(PARENT_DIR)
+if os.path.exists(output_file):
+    statistics = pd.read_csv(output_file,index_col=0)
     statistics = pd.concat([statistics,cell_pvals])
     statistics = pd.concat([statistics,gene_pvals])
 
 else:
     statistics = pd.concat([cell_pvals,gene_pvals])
 
-statistics.to_csv("../results/accuracy/pvalues_table.csv")
+statistics.to_csv(output_file)
 
 #------------------------# Metric per gene #------------------------#
 
@@ -114,4 +116,4 @@ MSE = pd.concat([pd.melt(MSE_cells, id_vars=["axis"]),
 MSE["dataset"] = [dataset] * MSE.shape[0]
 MSE.columns = ["axis","method","MSE","dataset"]
 
-MSE.to_csv("../results/accuracy/MSE_{}.csv".format(dataset))
+MSE.to_csv("{}/results/accuracy/MSE_{}.csv".format(PARENT_DIR,dataset))

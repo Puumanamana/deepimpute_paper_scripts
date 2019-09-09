@@ -1,12 +1,15 @@
 import pandas as pd
 import numpy as np
-import os
 import h5py
 
 import argparse
 from scipy.stats import pearsonr
 
 from deepimpute.multinet import MultiNet
+
+import os,sys
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
 
 #------------------------# Parse args #------------------------#
 
@@ -21,7 +24,7 @@ n_iter = 10
 
 #------------------------# Data #------------------------#
 
-handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('{}/paper_data/accuracy.h5'.format(PARENT_DIR),'r').get(dataset)
 
 cells = handle.get('cells')[:].astype(str)
 genes = handle.get('genes')[:].astype(str)
@@ -33,7 +36,7 @@ mask = (raw != truth)
 
 print('Raw data loaded')
 
-outputdir = "../results/training_w_subsets"
+outputdir = "{}/results/training_w_subsets".format(PARENT_DIR)
 if not os.path.exists(outputdir):
     os.mkdir(outputdir)
 

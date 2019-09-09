@@ -5,8 +5,12 @@ from scipy.stats import pearsonr,ks_2samp
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import sys
-sys.path.append('..')
+import os,sys
+PARENT_DIR = os.path.join(sys.path[0], '..')
+sys.path.insert(1, PARENT_DIR)
+
+output_dir = "{}/results/fish".format(PARENT_DIR)
+
 from config import colors
 
 def plot_gini(df):
@@ -41,7 +45,7 @@ def plot_gini(df):
                 fontsize=10)
         ax.set_title(ax.get_title().replace("variable = ",""), fontweight='bold')
 
-    plt.savefig("../results/fish/gini_scatter.png",dpi=300)
+    plt.savefig("{}/gini_scatter.png".format(output_dir),dpi=300)
     plt.show()
 
 
@@ -72,7 +76,7 @@ def plot_distributions(distributions):
             ax.set_ylabel("Density", fontsize=14)
         if int(i/3) == 1 or i==2:
             ax.set_xlabel("Normalized values", fontsize=14)
-    plt.savefig("../results/fish/distributions_FISH.png",dpi=300)
+    plt.savefig("{}/distributions_FISH.png".format(output_dir),dpi=300)
     plt.show()
 
 def get_ks_values(data_distr):
@@ -91,12 +95,12 @@ def get_ks_values(data_distr):
     results = results.pivot('method','gene')
     results = results.iloc[np.argsort(results.sum(axis=1)).values,:]
     
-    results.to_csv('results/fish/KS_stats.csv')
+    results.to_csv('{}/KS_stats.csv'.format(output_dir))
         
 if __name__ == '__main__':
-    data_gini = pd.read_csv("../results/fish/gini.csv").dropna()
+    data_gini = pd.read_csv("{}/gini.csv".format(output_dir)).dropna()
     plot_gini(data_gini)
     
-    data_distr = pd.read_csv("../results/fish/normalized_distributions.csv", index_col=0)
+    data_distr = pd.read_csv("{}/normalized_distributions.csv".format(output_dir), index_col=0)
     plot_distributions(data_distr)
     get_ks_values(data_distr)

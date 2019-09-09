@@ -4,28 +4,28 @@ import pandas as pd
 import numpy as np
 import sklearn.metrics
 
-import scanpy.api as sc
-import scanpy.api.pp as pp
-import scanpy.api.tl as tl
+import scanpy as sc
 
 from deepimpute.multinet import MultiNet
 
+PARENT_DIR = os.path.join(sys.path[0], '..')
+
 def seurat(adata,filename,dataset=None):
 
-    output_path = "../results/downstream/UMAP/{}".format(dataset)
+    output_path = "{}/results/downstream/UMAP/{}".format(PARENT_DIR,dataset)
 
     if not os.path.exists(output_path):
         os.system("mkdir -p {}".format(output_path))
 
-    pp.recipe_seurat(adata)
+    sc.pp.recipe_seurat(adata)
     
     adata.X[np.isnan(adata.X)] = 0
     adata.X[np.isinf(adata.X)] = 0    
 
-    tl.pca(adata)
-    pp.neighbors(adata, use_rep='X_pca')
+    sc.tl.pca(adata)
+    sc.pp.neighbors(adata, use_rep='X_pca')
 
-    tl.umap(adata)
+    sc.tl.umap(adata)
 
     np.save("{}/{}.npy".format(output_path,filename),adata.obsm['X_umap'])
 
@@ -33,7 +33,7 @@ def seurat(adata,filename,dataset=None):
     return adata
 
 def cluster(adata):
-    tl.leiden(adata)
+    sc.tl.leiden(adata)
     return adata
 
 def evaluate(adata,
@@ -44,7 +44,7 @@ def evaluate(adata,
     X = adata.obsm["X_umap"]
 
     scores = {'adjusted_rand_score': sklearn.metrics.adjusted_rand_score(truth,pred),
-              'adjusted_mutual_info_score': sklearn.metrics.adjusted_mutual_info_score(truth,pred),
+              'adjusted_mutual_info_score': sklearn.metrics.adjusted_mutual_info_score(truth,pred,average_method='arithmetic'),
               'Fowlkes-Mallows': sklearn.metrics.fowlkes_mallows_score(truth,pred),
               'silhouette_score': sklearn.metrics.silhouette_score(X,truth.tolist())}
     print(scores)
@@ -60,7 +60,8 @@ def evaluate(adata,
     scores_df.to_csv(output)
 
 def extract_DEGs(adata,nGenes):
-    tl.rank_genes_groups(adata,
+
+    sc.tl.rank_genes_groups(adata,
                          groupby='celltype',
                          n_genes=nGenes,
                          method='wilcoxon')
@@ -102,7 +103,7 @@ if __name__ == '__main__':
     
     print("Dataset: {}".format(dataset))
 
-    DATA_DIR = "paper_data/downstream"
+    DATA_DIR = "{}/paper_data/downstream".format(PARENT_DIR)
 
     print("Loading raw data.")
     
@@ -123,12 +124,12 @@ if __name__ == '__main__':
         adata = seurat(adata,method,dataset=dataset)
         adata = cluster(adata)
         evaluate(adata,method,
-                 "../results/downstream/leiden_{}_clustering_scores.csv".format(dataset))
+                 "{}/results/downstream/leiden_{}_clustering_scores.csv".format(PARENT_DIR,dataset))
         if dataset == 'sim':
             DEGs.update({ method: extract_DEGs(adata,nGenes=500) })
         print("{} processed.".format(method))
 
     if dataset == 'sim':
-        with open('../results/downstream/DEGs.pickle','wb') as handle:
+        with open('{}/results/downstream/DEGs.pickle'.format(PARENT_DIR),'wb') as handle:
             pickle.dump(DEGs,handle)
                 

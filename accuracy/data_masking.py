@@ -7,6 +7,10 @@ from scipy.stats import logistic
 
 from collections import Counter
 
+import os,sys
+
+PARENT_DIR = os.path.join(sys.path[0], '..')
+
 parser = argparse.ArgumentParser(description='Mask data.')
 parser.add_argument('-d', type=str, default='jurkat')
 args = parser.parse_args()
@@ -37,7 +41,7 @@ def estimate_dropout_prob(data):
 
 #----------- Load data -----------#
 
-handle = h5py.File('../paper_data/accuracy.h5','r').get(dataset)
+handle = h5py.File('{}/paper_data/accuracy.h5','r').get(PARENT_DIR,dataset)
 
 truth = np.array(handle.get('truth'))
 cells = handle.get('cells')[:].astype(str)
@@ -83,7 +87,7 @@ print(fails)
 #----------- Save masked data -----------#
 
 handle.close()
-handle = h5py.File('../paper_data/accuracy.h5','a')
+handle = h5py.File('{}/paper_data/accuracy.h5'.format(PARENT_DIR),'a')
 handle.create_dataset('{}/raw'.format(dataset),data=raw)
 
 raw_csv = pd.DataFrame(raw,index=cells, columns=genes).T
