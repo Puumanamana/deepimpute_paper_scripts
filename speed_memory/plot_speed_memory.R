@@ -1,7 +1,7 @@
 library("ggplot2")
 library("scales")
 
-data <- read.csv('../paper_data/speed_memory.csv',row.names=1)
+data <- read.csv('../results/speed_memory/speed_memory.csv',row.names=1)
 colors <- c("#3E63B2","#FF9966","#9933FF","#FF0000","#009900","#FF66FF","#996633")
 names(colors) <- c("deepImpute","DCA","scImpute","SAVER","MAGIC","DrImpute","VIPER")
 
