@@ -1,0 +1,161 @@
+Converting x to matrix.
+3206 genes, 500 cells
+starting worker pid=52753 on localhost:11389 at 22:39:06.148
+starting worker pid=52811 on localhost:11389 at 22:39:06.943
+starting worker pid=52851 on localhost:11389 at 22:39:07.761
+starting worker pid=52895 on localhost:11389 at 22:39:08.598
+starting worker pid=52998 on localhost:11389 at 22:39:09.410
+starting worker pid=53057 on localhost:11389 at 22:39:10.244
+starting worker pid=53137 on localhost:11389 at 22:39:11.061
+starting worker pid=53200 on localhost:11389 at 22:39:11.630
+starting worker pid=53269 on localhost:11389 at 22:39:12.297
+starting worker pid=53358 on localhost:11389 at 22:39:13.138
+starting worker pid=53434 on localhost:11389 at 22:39:13.702
+starting worker pid=53499 on localhost:11389 at 22:39:14.264
+starting worker pid=53584 on localhost:11389 at 22:39:14.823
+starting worker pid=53646 on localhost:11389 at 22:39:15.394
+starting worker pid=53723 on localhost:11389 at 22:39:15.965
+starting worker pid=53777 on localhost:11389 at 22:39:16.796
+starting worker pid=53848 on localhost:11389 at 22:39:17.343
+starting worker pid=53933 on localhost:11389 at 22:39:17.893
+starting worker pid=54000 on localhost:11389 at 22:39:18.452
+starting worker pid=54070 on localhost:11389 at 22:39:19.021
+Running SAVER with 20 worker(s)
+Calculating predictions for 3206 genes using 3206 genes and 500 cells...
+Start time: 2019-09-09 22:39:19
+Estimating finish time...
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+Loading required package: SAVER
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Loading required package: SAVER
+Loading required package: SAVER
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+Loading required package: SAVER
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Loading required package: SAVER
+Loading required package: SAVER
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Loading required package: SAVER
+Loading required package: SAVER
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Loading required package: SAVER
+Loading required package: SAVER
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Loading required package: SAVER
+loaded SAVER and set parent environment
+Finished 20/3206 genes. Approximate finish time: 2019-09-09 22:40:23
+Calculating max cor cutoff...
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Finished 100/3206 genes. Approximate finish time: 2019-09-09 22:40:24
+Calculating lambda coefficients...
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Finished 344/3206 genes. Approximate finish time: 2019-09-09 22:40:34
+Predicting remaining genes...
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Finished 1060/3206 genes. Approximate finish time: 2019-09-09 22:40:34
+Predicting remaining genes...
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+loaded SAVER and set parent environment
+Done!
+Finish time: 2019-09-09 22:40:31
+Total time: 1.198555 mins
+Warning message:
+In clean.data(x) : Make sure x is numeric.
+/home/carisdak/deepimpute_paper_scripts/speed_memory/work/49/db3593f8727410352b2c1cf5b276b6/.command.sh: line 3: 52548 Terminated              nohup vmstat 1 10000 > vmstats_SAVER_500_1.txt
+pkill: killing pid 308 failed: Operation not permitted

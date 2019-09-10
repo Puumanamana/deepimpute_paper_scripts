@@ -73,11 +73,13 @@ if __name__ == '__main__':
     parser.add_argument('--method', type=str, default='magic')
     parser.add_argument('--path', type=str)
     parser.add_argument('--threads', type=int, default=1)
-    parser.add_argument('--trial', type=int, default=1)    
+    parser.add_argument('--trial', type=str, default=1)
+    parser.add_argument('--ncells', type=str, default=100)
     args = parser.parse_args()
 
     runner = ImputationRunner(args.path,args.method,args.threads)
     dt = runner.run()
 
-    with open("time_{}_{}.txt".format(args.method,args.trial),'w') as handle:
-        handle.write('{} {} {}'.format(args.method,args.trial,dt))
+    with open("time_{}_{}_{}.txt".format(args.method,args.ncells,args.trial),'w') as handle:
+        handle.write(','.join([args.method,args.ncells,args.trial,str(dt),'runTime']))
+        handle.write('\n')
