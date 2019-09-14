@@ -36,6 +36,7 @@ class ImputationRunner:
         from deepimpute.multinet import MultiNet
 
         model = MultiNet(ncores=self.ncores)
+        model.fit(data)
         imputed = model.predict(data)
         return imputed
 
@@ -45,8 +46,8 @@ class ImputationRunner:
 
         data = self.load()
         adata = sc.AnnData(data.values, obs=data.index, var=data.columns)
-        imputed = dca(adata, threads=self.ncores).X
-        return pd.DataFrame(imputed)
+        dca(adata, threads=self.ncores)
+        return pd.DataFrame(adata.X)
 
     @timer
     def run(self):

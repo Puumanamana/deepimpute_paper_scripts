@@ -31,7 +31,7 @@ peak_usage = memory[0] - memory.min()
 print("{} - Check: {} memory values ({} lines)".format(filename,len(memory),n_lines))
 print("{}: Peak memory usage = {} MB".format(filename,peak_usage/1e3))
 
-with open('summary.csv','a') as handle:
+with open('time_memory.csv','a') as handle:
     handle.write(','.join([method,ncells,trial,str(peak_usage),"peakMem"]))
     handle.write('\n')
     

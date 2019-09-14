@@ -12,7 +12,7 @@ runSAVER <- function(path,ncores) {
 
 runScImpute <- function(path,ncores) {
     library(scImpute)
-    scimpute(path,labeled=FALSE,Kcluster=1,ncores=ncores)
+    scimpute(path,out_dir='.',labeled=FALSE,Kcluster=1,ncores=ncores)
 }
 
 runDrImpute <- function(path) {
@@ -35,9 +35,9 @@ runVIPER <- function(path,ncores) {
 
     data <- loadScData(path)
     norm.factor <- 10^6 / colSums(data)
-    data.norm <- sweep(data.pos,MARGIN=2,FUN="*",STATS=norm.factor)
+    data.norm <- sweep(data,MARGIN=2,FUN="*",STATS=norm.factor)
 
-    imputed <- VIPER(data.norm, num=5000, outdir=NULL)$imputed
+    imputed <- VIPER(data.norm,num=5000,outdir=NULL,prefix=NULL,minbool=FALSE,report=FALSE)$imputed
     return(imputed)
 }
 

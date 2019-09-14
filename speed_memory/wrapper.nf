@@ -1,15 +1,16 @@
 data_dir = "${workflow.projectDir}/../paper_data/speed_and_memory"
-  //methods_py = ('deepImpute','magic','dca')
-  // methods_R = ('SAVER','scImpute','VIPER','DrImpute')
-methods_py = ['magic']
-methods_R = ['SAVER']
-trials = [1,2]
-ncell_list=[100,500]
+result_dir = "${workflow.projectDir}/../results/speed_memory/nextflow"
 
+methods_py = ['magic','deepImpute','dca']
+methods_R = ['SAVER','scImpute','VIPER','DrImpute']
+
+trials = [1,2,3,4,5]
+ncell_list=[100,500,1000,5000]
 
 process RscriptRunner {
     tag { "${method}_${ncells}" }
-    publishDir "Results/${method}", mode: "copy"
+    publishDir "${result_dir}/${method}", mode: "copy"
+    errorStrategy 'ignore'
     
     input:
     each ncells from ncell_list
@@ -29,7 +30,8 @@ process RscriptRunner {
 
 process PythonRunner {
     tag { "${method}_${ncells}" }
-    publishDir "Results/${method}", mode: "copy"
+    publishDir "${result_dir}/${method}", mode: "copy"
+    errorStrategy 'ignore'
     
     input:
     each ncells from ncell_list
@@ -53,18 +55,18 @@ process PythonRunner {
 }
 
 process SummaryFiles {
-    publishDir "Results/Summary", mode: "copy"
+    publishDir "${result_dir}/summary", mode: "copy"
     
     input:
     file f from DATA_R.collect()
     file g from DATA_PY.collect()
     
     output:
-    file "summary.csv"
+    file "time_memory.csv"
     
     script:
     """
-    cat time* > summary.csv
+    cat time* > time_memory.csv
     for f in `ls vmstat*`; do python ${workflow.projectDir}/extract_memory.py \$f ; done
     """
 }

@@ -5,3 +5,5 @@ paper_data
 *.h5
 *.h5ad
 *.gz
+work
+.nextflow*
