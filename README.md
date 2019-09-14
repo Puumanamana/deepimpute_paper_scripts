@@ -15,13 +15,13 @@ To use these scripts, you need first to:
   - Jurkat, 293T, neuron9k from the 10X genomics platform
   - GSE67602, GSE99330 (Fish_Dropseq), GSE102827 (Hrvatin dataset)
   - The RNA FISH dataset is avaiable at https://www.dropbox.com/sh/g9c84n2torx7nuk/AABZei_vVpcfTUNL7buAp8z-a?dl=0
-- Impute all the datasets with all 7 methods (or the ones that can be ran)
+- Impute all the datasets with all the other 6 methods (or the ones that can be ran)
 - Undo normalization if the result is normalized
 - Collect all results and organize them the following way:
   - Accuracy experiment: All datasets (jurkat, 293T, neuron9k, GSE67602) are stored in a single h5 file, where each dataset is in a different group, and each group keys correspond to all methods + the cell labels (`cells` key), the gene labels (`genes` key), the masked dataset (`raw` key), and the true dataset ('truth' key)
-  - FISH experiment: There are 3 groups: `dropseq`, `fish`, `imputed`. the dropseq group consists in the raw dropseq data (`raw`) + the `genes` and `cells` labels. The `fish` group contains the same information in `data`, `genes` and `cells`. The `imputed` group has one key per imputation method.
-  - Downstram analysis experiment: One .h5ad (`scanpy` format) per dataset (sim or Hrvatin) per method. The naming is `${method}_${dataset}.h5ad`
-  - Speed / memory: You will need to setup a google cloud account (detailed specs are in the paper) and setup the instance. A specific docker instance for this experiment is available in the speed_memory folder. For this dataset, you will need to download the Mouse1M dataset from the [10X genomics website](https://www.10xgenomics.com/solutions/single-cell/) and subsample the resulting dataset with the cell numbers specified at the beginning of the `wrapper.nf` file.
+  - FISH experiment: Also a single `.h5 file`. There are 3 groups: `dropseq`, `fish`, `imputed`. the dropseq group consists in the raw dropseq data (`raw`) + the `genes` and `cells` labels. The `fish` group contains the same information in `data`, `genes` and `cells`. The `imputed` group has one key per imputation method.
+  - Downstram analysis experiment: One `.h5ad` (`scanpy` format) per dataset (sim or Hrvatin) per method. The naming is `${method}_${dataset}.h5ad`
+  - Speed / memory: You will need to setup a google cloud account (detailed specs are in the paper) and setup the instance. A specific docker instance for this experiment is available in the speed_memory folder. For this dataset, you will need to download the Mouse1M dataset from the [10X genomics website](https://www.10xgenomics.com/solutions/single-cell/) and subsample the resulting dataset with the cell numbers specified at the beginning of the `wrapper.nf` file. Each subsampled dataset must be named `mouse1M_{nb_cells}_{transposed,nonTranspoed}.csv`, where the files ending with {transposed} have cells as rows and genes as columns, whereas {nonTransposed} corresponds to gene as rows and cells as columns.
 
 # Running the scripts
 You can run the scripts inside a Docker container. Docker is available at https://www.docker.com/
@@ -36,7 +36,8 @@ Once built, you can access the container using the following command:
 The `PATH_TO_YOUR_DATA_FOLDER` needs to be organized the following way:
 - The two .h5 files named `accuracy.h5` and `FISH.h5`
 - 1 folder `downstream` with all files with the naming convention `{method}_{dataset}.h5ad`
-- 1 folder `speed_and_memory` with the subsampled dataset with the naming convention `mouse1M_{nb_cells}_{transposed,nonTranspoed}.csv`, where the files ending with {transposed} have cells as rows and genes as columns, whereas {nonTransposed} corresponds to gene as rows and cells as columns.
+- 1 folder `speed_and_memory` with the subsampled dataset.
+
 The scripts can then be launched using `python script.py` or `Rscript script.R` for R scripts with the name of the dataset when applicable for run_accuracy.py and run_downstream_annData.py, you can select the dataset with the "-d" followed by the name (jurkat/293T/GSE67602/neuron9k for the accuracy, and sim/Hrvatin for the downstreamanalysis).
 For the speed/memory figure, you just need to run `nextflow wrapper.nf`
 
