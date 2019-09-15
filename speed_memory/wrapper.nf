@@ -8,7 +8,7 @@ trials = [1,2,3,4,5]
 ncell_list=[100,500,1000,5000]
 
 process RscriptRunner {
-    tag { "${method}_${ncells}" }
+    tag { "${method}_${ncells}_${trial}" }
     publishDir "${result_dir}/${method}", mode: "copy"
     
     input:
@@ -28,7 +28,7 @@ process RscriptRunner {
 }
 
 process PythonRunner {
-    tag { "${method}_${ncells}" }
+    tag { "${method}_${ncells}_${trial}" }
     publishDir "${result_dir}/${method}", mode: "copy"
     
     input:
