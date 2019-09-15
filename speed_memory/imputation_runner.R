@@ -1,5 +1,5 @@
 loadScData <- function(path) {
-    data <- read.csv(path,row.names=1,header=TRUE,check.names=F)
+    data <- as.matrix(read.csv(path,row.names=1,header=TRUE,check.names=F))
     return(data)
 }
 
@@ -18,7 +18,7 @@ runScImpute <- function(path,ncores) {
 runDrImpute <- function(path) {
     library(DrImpute)
     
-    data <- as.matrix(loadScData(path))
+    data <- loadScData(path)
     
     data <- preprocessSC(data)
     size.factor <- apply(data, 2, mean)
