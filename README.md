@@ -38,7 +38,7 @@ Once built, you can access the container using the following command:
 The `PATH_TO_YOUR_DATA_FOLDER` must be located in the root level of this GitHub folder, and organized the following way:
 - The two .h5 files named `accuracy.h5` and `FISH.h5`
 - 1 folder `downstream` with all files with the naming convention `{method}_{dataset}.h5ad`
-- 1 folder `speed_and_memory` with the subsampled dataset.
+- 1 folder `speed_memory` with the subsampled dataset.
 
 The scripts can then be launched using `python script.py` or `Rscript script.R` for R scripts followed by additional flags when needed: For run_accuracy.py and run_downstream_annData.py, you can select the dataset with the "-d" followed by the name (jurkat/293T/GSE67602/neuron9k for the accuracy, and sim/Hrvatin for the downstream analysis).
 For the speed/memory figure, you just need to run `nextflow wrapper.nf`

@@ -1,4 +1,4 @@
-data_dir = "${workflow.projectDir}/../paper_data/speed_and_memory"
+data_dir = "${workflow.projectDir}/../paper_data/speed_memory"
 result_dir = "${workflow.projectDir}/../results/speed_memory/nextflow"
 
 methods_py = ['magic','deepImpute','dca']
@@ -10,7 +10,6 @@ ncell_list=[100,500,1000,5000]
 process RscriptRunner {
     tag { "${method}_${ncells}" }
     publishDir "${result_dir}/${method}", mode: "copy"
-    errorStrategy 'ignore'
     
     input:
     each ncells from ncell_list
@@ -31,7 +30,6 @@ process RscriptRunner {
 process PythonRunner {
     tag { "${method}_${ncells}" }
     publishDir "${result_dir}/${method}", mode: "copy"
-    errorStrategy 'ignore'
     
     input:
     each ncells from ncell_list

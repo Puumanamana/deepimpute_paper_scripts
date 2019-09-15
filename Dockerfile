@@ -23,7 +23,7 @@ RUN git clone "https://github.com/lanagarmire/deepimpute.git" && cd deepimpute &
 
 WORKDIR /workspace
 
-RUN mkdir results && cd results && mkdir accuracy downstream fish dropout_effect speed_memory training_w_subsets && cd ..
+RUN mkdir results && cd results && mkdir accuracy downstream fish dropout_effect training_w_subsets && cd ..
 
 COPY . .
 

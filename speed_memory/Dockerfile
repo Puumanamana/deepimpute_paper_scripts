@@ -36,7 +36,8 @@ RUN wget -qO- https://get.nextflow.io | bash
 RUN mv nextflow /usr/local/bin
 
 WORKDIR /workspace
+RUN mkdir -p results/speed_memory paper_data/speed_memory speed_memory
 
-COPY . .
+COPY . speed_memory/
 
 CMD /bin/bash
